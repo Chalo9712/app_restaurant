@@ -1,5 +1,5 @@
-// src/pages/NewRestaurant.js
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function NewRestaurant() {
   const [form, setForm] = useState({
@@ -16,49 +16,70 @@ export default function NewRestaurant() {
   const handleSubmit = e => {
     e.preventDefault();
     console.log("Nuevo restaurante:", form);
-    alert("Restaurante creado (simulado en consola)");
+
+    // Mostrar notificación
+    toast.success("✅ Restaurante creado correctamente");
+
+    // Limpiar formulario
+    setForm({
+      nombre: "",
+      descripcion: "",
+      direccion: "",
+      imagen: ""
+    });
   };
 
   return (
     <div className="container">
-      <h2 className="mb-4">Nuevo Restaurante</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nombre"
-          className="form-control mb-2"
-          placeholder="Nombre"
-          value={form.nombre}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="descripcion"
-          className="form-control mb-2"
-          placeholder="Descripción"
-          value={form.descripcion}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="direccion"
-          className="form-control mb-2"
-          placeholder="Dirección"
-          value={form.direccion}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="imagen"
-          className="form-control mb-2"
-          placeholder="URL de la imagen"
-          value={form.imagen}
-          onChange={handleChange}
-          required
-        />
-        <button className="btn btn-success">Guardar</button>
+      <h2 className="mb-4 text-center">➕ Nuevo Restaurante</h2>
+      <form onSubmit={handleSubmit} className="row g-3">
+        <div className="col-md-6">
+          <input
+            type="text"
+            name="nombre"
+            className="form-control"
+            placeholder="Nombre"
+            value={form.nombre}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="col-md-6">
+          <input
+            type="text"
+            name="direccion"
+            className="form-control"
+            placeholder="Dirección"
+            value={form.direccion}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="col-12">
+          <textarea
+            name="descripcion"
+            className="form-control"
+            placeholder="Descripción"
+            value={form.descripcion}
+            onChange={handleChange}
+            rows="3"
+            required
+          />
+        </div>
+        <div className="col-12">
+          <input
+            type="url"
+            name="imagen"
+            className="form-control"
+            placeholder="URL de la imagen"
+            value={form.imagen}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="col-12 text-center">
+          <button className="btn btn-success px-4">Guardar</button>
+        </div>
       </form>
     </div>
   );
