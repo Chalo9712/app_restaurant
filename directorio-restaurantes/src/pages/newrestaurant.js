@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { createRestaurant } from "../firebase/firebaseService";
+
 
 export default function NewRestaurant() {
   const [form, setForm] = useState({
@@ -13,20 +15,24 @@ export default function NewRestaurant() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log("Nuevo restaurante:", form);
 
-    // Mostrar notificación
-    toast.success("✅ Restaurante creado correctamente");
+    try {
+      await createRestaurant(form);
+      toast.success("✅ Restaurante creado correctamente");
 
-    // Limpiar formulario
-    setForm({
-      nombre: "",
-      descripcion: "",
-      direccion: "",
-      imagen: ""
-    });
+      // Limpiar formulario después de guardar
+      setForm({
+        nombre: "",
+        descripcion: "",
+        direccion: "",
+        imagen: ""
+      });
+    } catch (error) {
+      console.error("Error al crear restaurante:", error);
+      toast.error("❌ Error al crear restaurante. Intenta de nuevo.");
+    }
   };
 
   return (
