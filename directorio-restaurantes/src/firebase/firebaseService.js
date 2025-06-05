@@ -1,13 +1,13 @@
 // src/firebaseService.js
-import { 
-  collection, 
-  addDoc, 
-  getDocs, 
-  query, 
-  where, 
-  orderBy, 
-  startAt, 
-  endAt 
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  startAt,
+  endAt
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -40,7 +40,7 @@ export const getRestaurants = async () => {
   }
 };
 
-// Buscar restaurantes por nombre (coincidencia exacta)
+// Buscar restaurantes por nombre
 export const searchRestaurantsByName = async (nombre) => {
   try {
     const q = query(restaurantsCollection, where("nombre", "==", nombre));
@@ -56,7 +56,7 @@ export const searchRestaurantsByName = async (nombre) => {
   }
 };
 
-// Buscar restaurantes por nombre (búsqueda parcial - que empiece con el texto)
+// Buscar restaurantes por nombre (búsqueda parcial)
 export const searchRestaurantsByNamePartial = async (nombreParcial) => {
   try {
     const q = query(
